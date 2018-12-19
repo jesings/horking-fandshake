@@ -26,23 +26,15 @@ lup:
     char goose[] = "goose";
     for(int i = 0;buf[i];i++){
         if(buf[i]==' '){
-            spacel = 0;
-            ducducgoo = (ducducgoo+1)%3;
-            continue;
+            spacel = 0, ducducgoo = (ducducgoo+1)%3;
         }
         else{
             spacel++;
-            if(ducducgoo!=2)
-                buf[i]=duck[spacel%4];
-            else
-                buf[i]=goose[spacel%5];
+            if(ducducgoo!=2) buf[i]=duck[spacel%4];
+            else buf[i]=goose[spacel%5];
         }
     }
     int status = write(to_client,buf,256);
-    if(status)
-        goto lup;
-    close(to_client);
-    close(from_client);
-    if(access("Gandalf", F_OK ) != -1 )
-        goto shandhake;
+    if(status) goto lup;
+    if(access("Gandalf", F_OK ) != -1 ) goto shandhake;
 }

@@ -13,6 +13,7 @@
 int server_handshake(int *to_client) {
     puts("Server establishing connection to client");
     int wkp = open("Gandalf",O_RDONLY);
+    printf("%d\n",wkp);
     if(-1==wkp){
         puts("Failure in opening well known pipe, make sure pipe exists");
         exit(0);

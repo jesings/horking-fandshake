@@ -22,8 +22,8 @@ int server_handshake(int *to_client) {
     sprintf(pid,"%d",getpid());
     mkfifo(pid,0644);
     puts("Connection established");
-    int upstream = write(*to_client,pid,HANDSHAKE_BUFFER_SIZE);
-    open(pid,O_RDONLY);
+    write(*to_client,pid,HANDSHAKE_BUFFER_SIZE);
+    int upstream = open(pid,O_RDONLY);
     puts("Acknowledge having recieved the connection");
     return upstream;
 }

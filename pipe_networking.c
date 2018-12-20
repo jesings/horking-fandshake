@@ -17,12 +17,12 @@ int server_handshake(int *to_client) {
     read(wkp,pipename,HANDSHAKE_BUFFER_SIZE);
     puts("Server recieved private pipe name");
     close(wkp);
-    int upstream = open(pipename,O_WRONLY);
+    *to_client = open(pipename,O_WRONLY);
     char pid[10];
     sprintf(pid,"%d",getpid());
     mkfifo(pid,0644);
     puts("Connection established");
-    write(upstream,pid,HANDSHAKE_BUFFER_SIZE);
+    int upstream = write(*to_client,pid,HANDSHAKE_BUFFER_SIZE);
     open(pid,O_RDONLY);
     puts("Acknowledge having recieved the connection");
     return upstream;

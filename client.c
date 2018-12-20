@@ -14,7 +14,6 @@ loop:
     fgets(buf,256,stdin);
     write(to_server,buf,256);
     read(from_server,buf,256);
-    printf("%d\n",retstat);
     puts(buf);
     goto loop;//ha I use goto statements because people hate them don't @ me I do this for my own amusement
 

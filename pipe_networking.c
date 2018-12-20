@@ -44,9 +44,8 @@ int client_handshake(int *to_server) {
     mkfifo(pid,0644);
     int wrfd = open("Gandalf",O_WRONLY);
     puts("Connection established");
-    char* ackbuff = "ipepay";
     puts("Client giving private pipe name to server");
-    write(wrfd,ackbuff,HANDSHAKE_BUFFER_SIZE);
+    write(wrfd,pid,HANDSHAKE_BUFFER_SIZE);
     puts("Client establishing a connection with server");
     int fromfd = open(pid,O_RDONLY);
     char* ackwait;

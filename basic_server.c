@@ -20,20 +20,18 @@ shandhake:
     char buf[256];
 lup:
     read(from_client,buf,256);
-    char ducducgoo = 0;
-    char spacel = 0;
-    char duck[] = "duck";
-    char goose[] = "goose";
+    char ducducgoo = 0, spacel = 0;
+    char duck[] = "duck", goose[] = "goose";
     for(int i = 0;buf[i];i++){
-        if(buf[i]==' '){
-            spacel = 0, ducducgoo = (ducducgoo+1)%3;
-        }
+        if(buf[i]==' ')
+            spacel = 0, ducducgoo = (++ducducgoo)%3;
         else{
-            spacel++;
             if(ducducgoo!=2) buf[i]=duck[spacel%4];
             else buf[i]=goose[spacel%5];
+            spacel++;
         }
     }
+    puts("input modified");
     int status = write(to_client,buf,256);
     if(status) goto lup;
     if(access("Gandalf", F_OK ) != -1 ) goto shandhake;

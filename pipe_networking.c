@@ -22,10 +22,9 @@ int server_handshake(int *to_client) {
     sprintf(pid,"%d",getpid());
     mkfifo(pid,0644);
     puts("Connection established");
-    char* ack = pid;
     open(pid,O_RDONLY);
     puts("Acknowledging having recieved the connection");
-    write(upstream,ACK,HANDSHAKE_BUFFER_SIZE);
+    write(upstream,pid,HANDSHAKE_BUFFER_SIZE);
     return upstream;
 }
 

@@ -51,6 +51,7 @@ int client_handshake(int *to_server) {
     int fromfd = open(pid,O_RDONLY);
     char* ackwait;
     read(fromfd,ackwait,HANDSHAKE_BUFFER_SIZE);
+    puts("Client recieved server private pipe");
     *to_server = open(ackwait,O_WRONLY);
     return fromfd;
 }

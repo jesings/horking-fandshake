@@ -15,13 +15,12 @@ int main() {
     int from_client;
     signal(SIGINT,sighandler);
     mkfifo("Gandalf",0644);
+    char buf[256];
 shandhake:
     from_client = server_handshake( &to_client );
-    char buf[256];
 lup:
     read(from_client,buf,256);
-    char ducducgoo = 0, spacel = 0;
-    char duck[] = "duck", goose[] = "goose";
+    char ducducgoo = 0, spacel = 0, duck[] = "duck", goose[] = "goose";
     for(int i = 0;buf[i];i++){
         if(buf[i]==' ')
             spacel = 0, ducducgoo = (++ducducgoo)%3;
@@ -31,8 +30,9 @@ lup:
             spacel++;
         }
     }
-    puts("input modified");
     int status = write(to_client,buf,256);
     if(status) goto lup;
+    close(to_client);
+    close(from_client);
     if(access("Gandalf", F_OK ) != -1 ) goto shandhake;
 }

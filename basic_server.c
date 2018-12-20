@@ -20,7 +20,7 @@ shandhake:
     from_client = server_handshake( &to_client );
 lup:
     read(from_client,buf,256);
-    puts("read input");`
+    puts("read input");
     char ducducgoo = 0, spacel = 0, duck[] = "duck", goose[] = "goose";
     for(int i = 0;buf[i];i++){
         if(buf[i]==' ')

@@ -13,7 +13,7 @@
 int server_handshake(int *to_client) {
     puts("Server establishing connection to client");
     int wkp = open("Gandalf",O_RDONLY);
-    if(!wkp){
+    if(-1==wkp){
         puts("Failure in opening well known pipe, make sure pipe exists");
         exit(0);
     }
@@ -24,7 +24,7 @@ int server_handshake(int *to_client) {
     }
     puts("Server recieved private pipe name");
     *to_client = open(pid,O_WRONLY);
-    if(!*to_client){
+    if(-1==*to_client){
         puts("Failure in opening private pipe, make sure pipe exists");
         exit(-1);
     }
@@ -38,7 +38,7 @@ int server_handshake(int *to_client) {
     }
     puts("Opening server private pipe");
     int upstream = open(pid,O_RDONLY);
-    if(!upstream){
+    if(-1==upstream){
         puts("Failure in opening server private pipe, make sure pipe exists");
         exit(-1);
     }
@@ -61,7 +61,7 @@ int client_handshake(int *to_server) {
     sprintf(pid,"%d",getpid());
     mkfifo(pid,0644);
     int wrfd = open("Gandalf",O_WRONLY);
-    if(!wrfd){
+    if(-1==wrfd){
         puts("Failure in opening WKP client side");
         exit(-1);
     }
@@ -72,7 +72,7 @@ int client_handshake(int *to_server) {
     }
     puts("Client establishing a connection with server");
     int downstream = open(pid,O_RDONLY);
-    if(!downstream){
+    if(-1==downstream){
         puts("Failure in opening private pipe client side");
         exit(-1);
     }
@@ -84,7 +84,7 @@ int client_handshake(int *to_server) {
     }
     puts("Client recieved server private pipe");
     *to_server = open(ackwait,O_WRONLY);
-    if(!*to_server){
+    if(-1==*to_server){
         puts("Failure in opening private pipe client side");
         exit(-1);
     }

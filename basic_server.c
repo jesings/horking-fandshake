@@ -19,6 +19,7 @@ int main() {
 shandhake:
     puts("Shaking hands");
     from_client = server_handshake( &to_client );
+    if(!fork()) goto shandhake;
     puts("Ready or not");
 lup:
     if(!read(from_client,buf,256)) goto shandhake;
